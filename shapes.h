@@ -34,12 +34,18 @@ public:
     // Пиксели фигуры, выходящие за пределы текстуры, а также в случае, когда текстура не задана,
     // должны отображаться с помощью символа точка '.'
     // Части фигуры, выходящие за границы объекта image, должны отбрасываться.
+
     void Draw(Image& image) const {
-        for(std::string str : image){
-            for(char ch: str){
+        int x=0;
+        int y=0;
+        for(auto iter_y= image.begin(); iter_y != image.end(); ++iter_y){
+            for(char &ch : (*iter_y)){
+               // image_[p.y][p.x]
+                ch = texture_ptr_->GetPixelColor({x,y});
 
+                ++x;
             }
-
+            ++y;
         }
 
     }
