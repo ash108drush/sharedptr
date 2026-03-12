@@ -9,25 +9,19 @@ public:
 
     // Возвращает размер изображения
     Size GetSize() const {
-        if(image_.empty()){
-            return {0,0};
-        }
-        int y_max = image_.size();
-        int x_max = image_[0].length();
-        return {x_max, y_max};
+        const int width = image_.empty() ? 0 : static_cast<int>(image_[0].size());
+        const int height = static_cast<int>(image_.size());
+        return {width, height};
+
     }
 
     // Возвращает цвет пикселя.
     // Если координаты выходят за границы изображения, возвращается пробел
     char GetPixelColor(Point p) const {
-        Size sz= GetSize();
-        if (p.x > sz.width || p.y > sz.height){
-            return ' ';
+        if(!image_.empty() && p.y < static_cast<int>(image_.size()) && p.x < static_cast<int>(image_[0].size())){
+            return image_[p.y][p.x];
         }
-       return image_[p.y][p.x];
-
-        // Заглушка. Реализуйте метод самостоятельно
-
+        return ' ';
     }
 
 private:

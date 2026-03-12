@@ -24,6 +24,7 @@ public:
         shape->SetPosition(position);
         shape->SetSize(size);
         shape->SetTexture(std::move(texture));
+        
         return InsertShape(std::move(shape));
     }
 
@@ -61,13 +62,17 @@ public:
         Image image(size_.height, std::string(size_.width, ' '));
 
         for (const auto& [id, shape] : shapes_) {
+            
             shape->Draw(image);
         }
 
         output << '#' << std::string(size_.width, '#') << "#\n"sv;
+        
         for (const auto& line : image) {
             output << '#' << line << "#\n"sv;
+            
         }
+        
         output << '#' << std::string(size_.width, '#') << "#\n"sv;
     }
 
